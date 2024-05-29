@@ -9,81 +9,56 @@ using UnityEngine.InputSystem.XR;
 public class PlayerMovement : MonoBehaviour
 {
     public UnityEvent OnMovementBoost;
-
-    public Animator AnimCompo { get; private set; }
-    [SerializeField] private InputSO _input;
-    private Camera _cam;
-    private CharacterController _charContorller;
-    private Vector3 _desiredMoveDir;
+    private Player _player;
+    public Vector3 Velocity { get; private set; }
     private Vector2 _moveDir;
 
-    [Header("Movement Setting")]
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _rotationSpeed = 0.1f;
-
-    [Header("Acceleration Settings")]
-    private float _currentAcceleration = 1;
-    [SerializeField] private float _runAcceleration = 2;
-    private float _accelerationMultiplier = 1f;
-    [SerializeField] private float _boostMultiplier = 1.5f;
-    [SerializeField] private float _boostDuration = 1;
-    [SerializeField] private float _accelerateLerp = .006f;
-    [SerializeField] private float _decelerateLerp = .05f;
-    [SerializeField] private float _runRotationSpeed = 100;
-    [SerializeField] private float _chargeStrafeSpeed = 15;
-
-    [Header("JumpSetting")]
-    [SerializeField] private float _jumpPower = 8;
-    [SerializeField] private float _verticalVelocity;
-    [SerializeField] private float gravity = 9.8f;
-
-    [Header("CollisionSetting")]
-    [SerializeField] private LayerMask _groundLayer;
-
-    [Header("Booleans")]
-    public bool _isGrounded;
-    [SerializeField] private bool _isJumping;
-    [SerializeField] private bool _blockRotationPlayer;
-    public bool _isRunning;
-    public bool _isBoosting;
-    public bool _finishedBoost;
-
+    
 
     private void Awake()
     {
-        _cam = Camera.main;
-        Transform virTrm = transform.Find("Visual");
-        AnimCompo = virTrm.GetComponent<Animator>();
-        _charContorller = GetComponent<CharacterController>();
+        _player = GetComponent<Player>();
     }
 
     private void Update()
     {
-        InputMagnitude();
+        //CheckGround();
+        Move();
+        //CheckJump();
     }
 
-
-    private void InputMagnitude()
+    private void CheckGround()
     {
-        //Calculate the Input Magnitude
-        float inputMagnitude = _input.Movement.sqrMagnitude;
+        _player.isGrounded = Physics.Raycast(transform.position + (transform.up * .05f), Vector3.down, .2f, _player.whatIsGround);
+    }
 
-        //Physically move player
-        if (inputMagnitude > 0.1f || _isRunning)
+    private void CheckJump()
+    {
+        if (_player.isGrounded)
         {
-            //anim.SetFloat("InputMagnitude", (isRunning ? 1 : inputMagnitude) * currentAcceleration, .1f, Time.deltaTime);
-            PlayerMoveAndRotation();
+            float jumpHeight = 5f;
+            _player.verticalVelocity = _player.jumpPower * jumpHeight;
+            if (_player.verticalVelocity >= _player.jumpPower)
+                _player.isJumping = false;
         }
         else
         {
-            //anim.SetFloat("InputMagnitude", inputMagnitude * currentAcceleration, .1f, Time.deltaTime);
+            _player.verticalVelocity -= _player.gravity * Time.deltaTime;
         }
+
+        _player.CharCompo.Move(Vector3.up * _player.verticalVelocity * Time.deltaTime);
     }
 
-    private void PlayerMoveAndRotation()
+
+    private void Move()
     {
-        Vector3 foward = _cam.transform.forward;
-        Vector3 right = _cam.transform.right;
+        _player.CharCompo.Move(Velocity);
+    }
+
+    public void SetMovement(Vector3 movement)
+    {
+        Vector3 foward = _player.CamCompo.transform.forward;
+        Vector3 right = _player.CamCompo.transform.right;
 
         foward.y = 0;
         right.y = 0;
@@ -91,20 +66,11 @@ public class PlayerMovement : MonoBehaviour
         foward.Normalize();
         right.Normalize();
 
-        if (_isRunning)
-        {
-            transform.eulerAngles += new Vector3(0, _input.Movement.x * Time.deltaTime * _rotationSpeed, 0);
-
-            _charContorller.Move(transform.forward * _moveSpeed * _currentAcceleration * Time.deltaTime);
-
-            return;
-        }
-        _desiredMoveDir = foward * _input.Movement.y + right * _input.Movement.x;
-
-        if(_blockRotationPlayer == false)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_desiredMoveDir), _rotationSpeed * _currentAcceleration);
-            _charContorller.Move(_desiredMoveDir * Time.deltaTime * (_moveSpeed * _currentAcceleration));
-        }
+        Velocity = movement * Time.fixedDeltaTime;
+        Velocity = foward * _player.InputCompo.Movement.y + right * _player.InputCompo.Movement.x;
+    }
+    public void SetRuningAngles()
+    {
+        transform.eulerAngles += new Vector3(0, _player.InputCompo.Movement.x * Time.deltaTime * _player.rotationSpeed, 0);
     }
 }
