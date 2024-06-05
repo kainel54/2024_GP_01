@@ -46,15 +46,16 @@ public class Player : MonoBehaviour
     public bool isRunning;
     public bool isBoosting;
     public bool finishedBoost;
+
+
+    public InputSO InputCompo;
     public Animator AnimCompo { get; private set; }
     public Camera CamCompo { get; private set; }
-    public InputSO InputCompo;
     public PlayerStateMachine StateMachine { get; private set; }
     public CharacterController CharCompo { get; private set; }
     public PlayerMovement MoveCompo { get; private set; }
     public bool CanStateChangeable { get; private set; } = true;
 
-    private Vector3 _velocity;
     private void Awake()
     {
         Transform visualTrm = transform.Find("Visual");
@@ -93,6 +94,4 @@ public class Player : MonoBehaviour
     {
         StateMachine.CurrentState.UpdateState();
     }
-
-
 }

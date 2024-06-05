@@ -22,10 +22,10 @@ public class PlayerWalkState : PlayerState
         _player.InputCompo.OnMoveEvent -= HandleMovement;
         base.Exit();
     }
-    private void HandleMovement()
+    private void HandleMovement(Vector2 movement)
     {
         float inputThreshold = 0.05f;
-        if (_player.MoveCompo.Velocity.sqrMagnitude < inputThreshold)
+        if (movement.sqrMagnitude<=inputThreshold)
         {
             _stateMachine.ChangeState(State.Idle);
         }

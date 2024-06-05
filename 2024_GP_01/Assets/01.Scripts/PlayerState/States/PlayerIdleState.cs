@@ -20,11 +20,12 @@ public class PlayerIdleState : PlayerState
         _player.InputCompo.OnMoveEvent -= HandleMovementEvent;
         base.Exit();
     }
-    private void HandleMovementEvent()
+    private void HandleMovementEvent(Vector2 movement)
     {
         float inputThreshold = 0.05f;
-        
-        if (_player.MoveCompo.Velocity.sqrMagnitude > inputThreshold)
+        Vector3 velocity = new Vector3(movement.x, 0, movement.y);
+
+        if (velocity.sqrMagnitude > inputThreshold)
         {
             _stateMachine.ChangeState(State.Walk);
         }

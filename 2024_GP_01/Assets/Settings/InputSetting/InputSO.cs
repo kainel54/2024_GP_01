@@ -5,7 +5,7 @@ using static Controlls;
 [CreateAssetMenu(menuName ="SO/InputSO")]
 public class InputSO : ScriptableObject, IPlayerActions
 {
-    public Action OnMoveEvent;
+    public Action<Vector2> OnMoveEvent;
     public Action OnJumpEvent;
     public Action<bool> OnFireEvent;
     public Action<bool> OnRunEvent;
@@ -26,8 +26,9 @@ public class InputSO : ScriptableObject, IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("Input");
         Movement = context.ReadValue<Vector2>();
-        OnMoveEvent?.Invoke();
+        OnMoveEvent?.Invoke(Movement);
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -39,7 +40,7 @@ public class InputSO : ScriptableObject, IPlayerActions
     {
         if (context.performed)
         {
-            OnFireEvent?.Invoke(true);
+            OnFireEvent?.Invoke(true); 
         }
         if (context.canceled)
         {

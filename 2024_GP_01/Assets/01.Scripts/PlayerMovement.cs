@@ -10,10 +10,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public UnityEvent OnMovementBoost;
     private Player _player;
-    public Vector3 Velocity { get; private set; }
+    public Vector3 Velocity;
     private Vector2 _moveDir;
-
-    
 
     private void Awake()
     {
@@ -22,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //CheckGround();
+        CheckGround();
         Move();
         //CheckJump();
     }
