@@ -13,26 +13,38 @@ public class PlayerIdleState : PlayerState
     {
         base.Enter();
         _player.InputCompo.OnMoveEvent += HandleMovementEvent;
+        _player.InputCompo.OnFireEvent += HandleFireEvent;
+        _player.AnimCompo.SetFloat("InputMagnitude", 0, .1f, Time.deltaTime);
     }
+
+    
 
     public override void Exit()
     {
         _player.InputCompo.OnMoveEvent -= HandleMovementEvent;
+        _player.InputCompo.OnFireEvent -= HandleFireEvent;
+
         base.Exit();
     }
     private void HandleMovementEvent(Vector2 movement)
     {
         float inputThreshold = 0.05f;
-        Vector3 velocity = new Vector3(movement.x, 0, movement.y);
+        float velocity = new Vector2(movement.x,movement.y).magnitude;
 
-        if (velocity.sqrMagnitude > inputThreshold)
+        if (velocity > inputThreshold)
         {
-            _stateMachine.ChangeState(State.Walk);
+            _stateMachine.ChangeState(State.Move);
+        }
+        else
+        {
+            _player.AnimCompo.SetFloat("InputMagnitude", velocity * _player.currentAcceleration, .1f, Time.deltaTime);
         }
     }
-
-    public override void UpdateState()
+    private void HandleFireEvent(bool value)
     {
-        base.UpdateState();
+        if (value&&_player.arrowSystem.isCharging)
+        {
+            _stateMachine.ChangeState(State.ArrowIdle);
+        }
     }
 }

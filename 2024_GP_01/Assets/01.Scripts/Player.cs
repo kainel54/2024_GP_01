@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.Playables;
 
 public enum State
 {
     Idle,
-    Walk,
+    Move,
+    ArrowMovement,
+    ArrowIdle,
     //Run,
     //Jump,
     //ShootCharging,
@@ -35,6 +38,8 @@ public class Player : MonoBehaviour
     public float jumpPower = 8;
     public float verticalVelocity;
     public float gravity = 9.8f;
+    public float jumpHoldTime = 0.2f;
+    public float jumpTimer;
 
     [Header("CollisionSetting")]
     public LayerMask whatIsGround;
@@ -46,8 +51,11 @@ public class Player : MonoBehaviour
     public bool isRunning;
     public bool isBoosting;
     public bool finishedBoost;
+    [HideInInspector] public bool holdRunInput;
 
-
+    public BoostSystem boostSystem { get; private set; }
+    public ArrowSystem arrowSystem { get; private set; }
+    public TargetSystem targetSystem { get; private set; }
     public InputSO InputCompo;
     public Animator AnimCompo { get; private set; }
     public Camera CamCompo { get; private set; }
@@ -59,10 +67,15 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Transform visualTrm = transform.Find("Visual");
-        AnimCompo = visualTrm.GetComponent<Animator>();
+        AnimCompo = GetComponent<Animator>();
         CharCompo = GetComponent<CharacterController>();
         MoveCompo = GetComponent<PlayerMovement>();
         CamCompo = Camera.main;
+
+        boostSystem = GetComponent<BoostSystem>();
+        arrowSystem = GetComponent<ArrowSystem>();
+        targetSystem = GetComponent<TargetSystem>();
+
 
         StateMachine = new PlayerStateMachine();
 
@@ -82,7 +95,6 @@ public class Player : MonoBehaviour
                 Debug.LogError($"{typeName} is loading error check Message");
                 Debug.LogError(ex.Message);
             }
-
         }
     }
     private void Start()
@@ -93,5 +105,12 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.CurrentState.UpdateState();
+        if (!isJumping)
+        {
+            verticalVelocity -= gravity * Time.deltaTime;
+        }
+        CharCompo.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        float lerp = finishedBoost ? accelerateLerp : decelerateLerp;
+        currentAcceleration = Mathf.Lerp(currentAcceleration, isRunning ? (runAcceleration * accelerationMultiplier) : 1, lerp * Time.deltaTime);
     }
 }
