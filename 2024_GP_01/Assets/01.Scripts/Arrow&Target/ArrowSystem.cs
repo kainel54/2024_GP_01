@@ -45,9 +45,6 @@ public class ArrowSystem : MonoBehaviour
     [Header("UI Connections")]
     public Slider arrowPrecisionSlider;
 
-    [Header("Input")]
-    public InputActionReference fireAction;
-
     public ParticleSystem particleTest;
 
     void Start()
@@ -58,8 +55,8 @@ public class ArrowSystem : MonoBehaviour
         _player = GetComponent<Player>();
 
         //Inputs
-        fireAction.action.performed += FireAction_performed;
-        fireAction.action.canceled += FireAction_canceled;
+        _player.InputCompo.OnFireEvent += FireAction_performed;
+        _player.InputCompo.OnFireEvent += FireAction_canceled;
     }
 
     private void Update()
@@ -67,6 +64,12 @@ public class ArrowSystem : MonoBehaviour
         GetComponent<Animator>().SetBool("isCharging", isCharging);
         GetComponent<Animator>().SetBool("releaseCooldown", releaseCooldown);
         GetComponent<Animator>().SetBool("Run", FindObjectOfType<Player>().isRunning);
+    }
+
+    private void OnDestroy()
+    {
+        _player.InputCompo.OnFireEvent -= FireAction_performed;
+        _player.InputCompo.OnFireEvent -= FireAction_canceled;
     }
 
     private void CheckArrowRelease()
@@ -215,14 +218,20 @@ public class ArrowSystem : MonoBehaviour
 
     #region Input
 
-    private void FireAction_performed(InputAction.CallbackContext obj)
+    private void FireAction_performed(bool value)
     {
-        StartFire();
+        if (value)
+        {
+            StartFire();
+        }
     }
 
-    private void FireAction_canceled(InputAction.CallbackContext obj)
+    private void FireAction_canceled(bool value)
     {
-        CancelFire(true);
+        if (!value)
+        {
+            CancelFire(true);
+        }
     }
 
     #endregion

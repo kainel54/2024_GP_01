@@ -14,14 +14,23 @@ public class PlayerMoveState : PlayerState
     {
         base.Enter();
         _player.InputCompo.OnMoveEvent += HandleMovement;
-        _player.InputCompo.OnFireEvent += HandleFireMoveMent;
+        _player.InputCompo.OnFireEvent += HandleFire;
+        _player.InputCompo.OnJumpEvent += HandleJump;
     }
 
+    private void HandleJump()
+    {
+        if (_player.isGrounded)
+        {
+            _stateMachine.ChangeState(State.Jump);
+        }
+    }
 
     public override void Exit()
     {
         _player.InputCompo.OnMoveEvent -= HandleMovement;
-        _player.InputCompo.OnFireEvent -= HandleFireMoveMent;
+        _player.InputCompo.OnFireEvent -= HandleFire;
+        _player.InputCompo.OnJumpEvent -= HandleJump;
 
         base.Exit();
     }
@@ -37,7 +46,7 @@ public class PlayerMoveState : PlayerState
             _movementDir = movement;
         }
     }
-    private void HandleFireMoveMent(bool value)
+    private void HandleFire(bool value)
     {
         if (value)
         {
@@ -45,7 +54,10 @@ public class PlayerMoveState : PlayerState
             {
                 _stateMachine.ChangeState(State.ArrowRunning);
             }
-            _stateMachine.ChangeState(State.ArrowMovement);
+            else
+            {
+                _stateMachine.ChangeState(State.ArrowMovement);
+            }
         }
     }
 

@@ -19,7 +19,7 @@ public class PlayerArrowIdleState : PlayerState
 
     public override void Exit()
     {
-        _player.InputCompo.OnFireEvent += HandleFire;
+        _player.InputCompo.OnFireEvent -= HandleFire;
         _player.InputCompo.OnMoveEvent -= HandleMove;
 
         base.Exit();
@@ -40,7 +40,7 @@ public class PlayerArrowIdleState : PlayerState
     }
     private void HandleFire(bool value)
     {
-        if (value == false)
+        if (!value)
         {
             _stateMachine.ChangeState(State.Idle);
         }

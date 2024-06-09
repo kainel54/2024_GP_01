@@ -48,7 +48,7 @@ public class PlayerArrowMovementState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
-        _player.MoveCompo.SetMovement(_movementDir*0.7f);
+        _player.MoveCompo.SetMovement(_movementDir);
         _player.AnimCompo.SetFloat("InputMagnitude", _movementDir.magnitude * _player.currentAcceleration, .1f, Time.deltaTime);
     }
 }

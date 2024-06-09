@@ -20,10 +20,17 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _player = GetComponent<Player>();
-        _player.arrowSystem.OnTargetHit.AddListener(Boost);
 
         _player.InputCompo.OnRunEvent += RunAction_performed;
         _player.InputCompo.OnRunEvent += RunAction_canceled;
+        
+        //_player.arrowSystem.OnTargetHit.AddListener(Boost);
+    }
+
+    private void OnDestroy()
+    {
+        _player.InputCompo.OnRunEvent -= RunAction_performed;
+        _player.InputCompo.OnRunEvent -= RunAction_canceled;
     }
 
     private void Update()
@@ -51,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         OnMovementBoost.Invoke();
 
         if (!_player.isGrounded)
-            _player.AnimCompo.SetTrigger("Flip");
+            _player.StateMachine.ChangeState(State.Flip);
 
         _player.finishedBoost = false;
 
@@ -82,7 +89,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGround()
     {
-        _player.isGrounded = Physics.Raycast(transform.position + (transform.up * .05f), Vector3.down, .2f, _player.whatIsGround);
+        _player.isGrounded = Physics.Raycast(transform.position + (transform.up * .05f), Vector3.down, .3f, _player.whatIsGround);
+        _player.AnimCompo.SetBool("isGrounded", _player.isGrounded);
+        _player.AnimCompo.SetFloat("GroundedValue", _player.isGrounded ? 0 : 1, .1f, Time.deltaTime);
     }
 
     public void SetMovement(Vector2 movement)
@@ -124,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RunAction_performed(bool value)
     {
+        Debug.Log("RunInput");
         if (value)
         {
             _player.holdRunInput = true;
@@ -144,8 +154,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!value)
         {
+            Debug.Log("RunOutPut");
             _player.isRunning = false;
             _player.holdRunInput = false;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawRay(transform.position + (transform.up * .05f), Vector3.down);
     }
 }

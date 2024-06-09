@@ -26,7 +26,6 @@ public class InputSO : ScriptableObject, IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Input");
         Movement = context.ReadValue<Vector2>();
         OnMoveEvent?.Invoke(Movement);
     }
@@ -53,10 +52,12 @@ public class InputSO : ScriptableObject, IPlayerActions
         if (context.performed)
         {
             OnRunEvent?.Invoke(true);
+            Debug.Log("True");
         }
         if (context.canceled)
         {
             OnRunEvent?.Invoke(false);
+            Debug.Log("False");
         }
     }
 
@@ -65,6 +66,7 @@ public class InputSO : ScriptableObject, IPlayerActions
         if (context.performed)
         {
             OnJumpEvent?.Invoke();
+            Debug.Log("jump");
         }
     }
 }

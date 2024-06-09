@@ -15,14 +15,14 @@ public class BoostSystem : MonoBehaviour
     public float boostAmount;
 
     [Header("Parameters")]
-    [SerializeField] float boostDrainSpeed = .1f;
-    [SerializeField] float boostGainAmount = .3f;
+    [SerializeField] private float boostDrainSpeed = .1f;
+    [SerializeField] private float boostGainAmount = .3f;
 
     [Header("Visuals")]
-    [SerializeField] Renderer boostMesh;
+    [SerializeField] private Renderer boostMesh;
 
     [Header("UI")]
-    [SerializeField] Slider boostSlider;
+    [SerializeField] private Slider boostSlider;
 
     private void Start()
     {

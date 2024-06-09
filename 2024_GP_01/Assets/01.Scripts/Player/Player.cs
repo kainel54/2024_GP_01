@@ -12,10 +12,8 @@ public enum State
     ArrowMovement,
     ArrowIdle,
     ArrowRunning,
-    //Run,
-    //Jump,
-    //ShootCharging,
-    //Shoot
+    Jump,
+    Flip,
 }
 
 public class Player : MonoBehaviour
@@ -52,7 +50,7 @@ public class Player : MonoBehaviour
     public bool isRunning;
     public bool isBoosting;
     public bool finishedBoost;
-    [HideInInspector] public bool holdRunInput;
+    public bool holdRunInput;
 
     public BoostSystem boostSystem { get; private set; }
     public ArrowSystem arrowSystem { get; private set; }
@@ -67,7 +65,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Transform visualTrm = transform.Find("Visual");
         AnimCompo = GetComponent<Animator>();
         CharCompo = GetComponent<CharacterController>();
         MoveCompo = GetComponent<PlayerMovement>();
@@ -76,7 +73,6 @@ public class Player : MonoBehaviour
         boostSystem = GetComponent<BoostSystem>();
         arrowSystem = GetComponent<ArrowSystem>();
         targetSystem = GetComponent<TargetSystem>();
-
 
         StateMachine = new PlayerStateMachine();
 
@@ -106,6 +102,5 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.CurrentState.UpdateState();
-        
     }
 }

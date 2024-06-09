@@ -67,7 +67,7 @@ public class ParticleCollision : MonoBehaviour
         arrowSystem.TargetHit(collisionEvents[0].velocity);
     }
 
-    void Complete(Renderer renderer)
+    private void Complete(Renderer renderer)
     {
         renderer.material.DOFloat(0, "_Alpha", .3f).OnComplete(() => amount = 0);
     }

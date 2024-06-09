@@ -14,17 +14,23 @@ public class PlayerIdleState : PlayerState
         base.Enter();
         _player.InputCompo.OnMoveEvent += HandleMovementEvent;
         _player.InputCompo.OnFireEvent += HandleFireEvent;
+        _player.InputCompo.OnJumpEvent += HandleJumpEvent;
         _player.AnimCompo.SetFloat("InputMagnitude", 0, .1f, Time.deltaTime);
     }
 
-    
 
     public override void Exit()
     {
         _player.InputCompo.OnMoveEvent -= HandleMovementEvent;
         _player.InputCompo.OnFireEvent -= HandleFireEvent;
+        _player.InputCompo.OnJumpEvent -= HandleJumpEvent;
 
         base.Exit();
+    }
+    private void HandleJumpEvent()
+    {
+        if(_player.isGrounded)
+            _stateMachine.ChangeState(State.Jump);
     }
     private void HandleMovementEvent(Vector2 movement)
     {
@@ -46,5 +52,6 @@ public class PlayerIdleState : PlayerState
         {
             _stateMachine.ChangeState(State.ArrowIdle);
         }
+        
     }
 }
