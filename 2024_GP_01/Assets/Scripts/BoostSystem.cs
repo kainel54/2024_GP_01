@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BoostSystem : MonoBehaviour
 {
     private bool hasAvailableBoost;
-    private MovementInput movement;
+    private Player movement;
     private ArrowSystem arrowSystem;
 
     [Header("Boost Values")]
@@ -27,10 +27,10 @@ public class BoostSystem : MonoBehaviour
     private void Start()
     {
         arrowSystem = GetComponent<ArrowSystem>();
-        movement = GetComponent<MovementInput>();
+        movement = GetComponent<Player>();
 
         arrowSystem.OnTargetHit.AddListener(AddToBoost);
-        movement.OnMovementBoost.AddListener(ActivateBoostVisual);
+        movement.MoveCompo.OnMovementBoost.AddListener(ActivateBoostVisual);
 
         boostSlider.value = boostAmount;
         VisualSetup();

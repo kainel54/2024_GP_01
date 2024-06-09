@@ -11,6 +11,7 @@ public enum State
     Move,
     ArrowMovement,
     ArrowIdle,
+    ArrowRunning,
     //Run,
     //Jump,
     //ShootCharging,
@@ -105,12 +106,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.CurrentState.UpdateState();
-        if (!isJumping)
-        {
-            verticalVelocity -= gravity * Time.deltaTime;
-        }
-        CharCompo.Move(Vector3.up * verticalVelocity * Time.deltaTime);
-        float lerp = finishedBoost ? accelerateLerp : decelerateLerp;
-        currentAcceleration = Mathf.Lerp(currentAcceleration, isRunning ? (runAcceleration * accelerationMultiplier) : 1, lerp * Time.deltaTime);
+        
     }
 }

@@ -7,7 +7,7 @@ using DG.Tweening;
 public class ArrowTarget : MonoBehaviour
 {
     Transform player;
-    MovementInput playerMovement;
+    Player playerMovement;
     private Renderer detectorRenderer;
     private Color originalColor;
 
@@ -28,7 +28,7 @@ public class ArrowTarget : MonoBehaviour
         detectorRenderer = GetComponent<Renderer>();
         originalColor = visualRenderer.material.color;
 
-        playerMovement = FindObjectOfType<MovementInput>();
+        playerMovement = FindObjectOfType<Player>();
         player = playerMovement.transform;
     }
 

@@ -17,10 +17,10 @@ public class ArrowSystem : MonoBehaviour
     [HideInInspector] public UnityEvent<float> OnArrowRelease;
     [HideInInspector] public UnityEvent OnTargetLost;
 
-    TargetSystem targetSystem;
-    ArrowTarget lockedTarget;
-    Coroutine arrowSystemCooldown;
-    MovementInput movement;
+    private TargetSystem targetSystem;
+    private ArrowTarget lockedTarget;
+    private Coroutine arrowSystemCooldown;
+    private Player _player;
 
     public bool active;
 
@@ -55,7 +55,7 @@ public class ArrowSystem : MonoBehaviour
 
         //Declarations
         targetSystem = GetComponent<TargetSystem>();
-        movement = GetComponent<MovementInput>();
+        _player = GetComponent<Player>();
 
         //Inputs
         fireAction.action.performed += FireAction_performed;
@@ -66,7 +66,7 @@ public class ArrowSystem : MonoBehaviour
     {
         GetComponent<Animator>().SetBool("isCharging", isCharging);
         GetComponent<Animator>().SetBool("releaseCooldown", releaseCooldown);
-        GetComponent<Animator>().SetBool("Run", FindObjectOfType<MovementInput>().isRunning);
+        GetComponent<Animator>().SetBool("Run", FindObjectOfType<Player>().isRunning);
     }
 
     private void CheckArrowRelease()

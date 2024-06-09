@@ -10,7 +10,7 @@ public class LookTestScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = FindObjectOfType<MovementInput>().transform;
+        target = FindObjectOfType<Player>().transform;
         arrowTargetSystem = GetComponentInChildren<ArrowTarget>();
     }
 

@@ -18,6 +18,7 @@ public class PlayerJumpState : PlayerState
 
     public override void Exit()
     {
+        _player.InputCompo.OnJumpEvent -= HandleJump;
         base.Exit();
     }
 

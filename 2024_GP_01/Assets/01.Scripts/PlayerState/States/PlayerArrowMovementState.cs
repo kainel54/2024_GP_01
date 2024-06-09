@@ -29,7 +29,7 @@ public class PlayerArrowMovementState : PlayerState
         float inputThreshold = 0.05f;
         if (movement.sqrMagnitude <= inputThreshold)
         {
-            _stateMachine.ChangeState(State.Idle);
+            _stateMachine.ChangeState(State.ArrowIdle);
         }
         else
         {

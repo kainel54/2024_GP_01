@@ -41,6 +41,10 @@ public class PlayerMoveState : PlayerState
     {
         if (value)
         {
+            if (_player.isRunning)
+            {
+                _stateMachine.ChangeState(State.ArrowRunning);
+            }
             _stateMachine.ChangeState(State.ArrowMovement);
         }
     }

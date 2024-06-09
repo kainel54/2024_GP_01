@@ -29,13 +29,16 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         CheckGround();
+        
         if (!_player.isJumping)
         {
             _player.verticalVelocity -= _player.gravity * Time.deltaTime;
         }
         _player.CharCompo.Move(Vector3.up * _player.verticalVelocity * Time.deltaTime);
+        
         float lerp = _player.finishedBoost ? _player.accelerateLerp : _player.decelerateLerp;
         _player.currentAcceleration = Mathf.Lerp(_player.currentAcceleration, _player.isRunning ? (_player.runAcceleration * _player.accelerationMultiplier) : 1, lerp * Time.deltaTime) ;
+        
     }
     public void Boost()
     {

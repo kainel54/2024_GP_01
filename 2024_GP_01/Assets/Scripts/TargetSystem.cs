@@ -12,8 +12,8 @@ public class TargetSystem : MonoBehaviour
 
     [HideInInspector] public UnityEvent<Transform> OnTargetChange;
 
-    ArrowSystem arrowSystem;
-    MovementInput movement;
+    private ArrowSystem arrowSystem;
+    private Player movement;
 
     public List<ArrowTarget> targets;
     public List<ArrowTarget> reachableTargets;
@@ -57,7 +57,7 @@ public class TargetSystem : MonoBehaviour
     private void Start()
     {
         arrowSystem = GetComponent<ArrowSystem>();
-        movement = GetComponent<MovementInput>();
+        movement = GetComponent<Player>();
 
         arrowSystem.OnArrowRelease.AddListener(CloneInterface);
         arrowSystem.OnInputStart.AddListener(AddTargetCache);
