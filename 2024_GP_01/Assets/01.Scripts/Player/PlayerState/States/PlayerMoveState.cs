@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveState : PlayerState
+public class PlayerMoveState : PlayerGroundState
 {
     private Vector2 _movementDir;
     public PlayerMoveState(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
@@ -15,22 +15,11 @@ public class PlayerMoveState : PlayerState
         base.Enter();
         _player.InputCompo.OnMoveEvent += HandleMovement;
         _player.InputCompo.OnFireEvent += HandleFire;
-        _player.InputCompo.OnJumpEvent += HandleJump;
     }
-
-    private void HandleJump()
-    {
-        if (_player.isGrounded)
-        {
-            _stateMachine.ChangeState(State.Jump);
-        }
-    }
-
     public override void Exit()
     {
         _player.InputCompo.OnMoveEvent -= HandleMovement;
         _player.InputCompo.OnFireEvent -= HandleFire;
-        _player.InputCompo.OnJumpEvent -= HandleJump;
 
         base.Exit();
     }
@@ -56,6 +45,7 @@ public class PlayerMoveState : PlayerState
             }
             else
             {
+                if( _player.isRunning&&_player.isGrounded)
                 _stateMachine.ChangeState(State.ArrowMovement);
             }
         }

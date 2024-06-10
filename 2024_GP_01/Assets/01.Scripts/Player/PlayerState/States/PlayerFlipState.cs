@@ -26,7 +26,8 @@ public class PlayerFlipState : PlayerState
     {
         base.UpdateState();
         _player.MoveCompo.SetMovement(_moveDir);
-        if (_player.isGrounded)
+        HandleJump();
+        if (_player.finishedBoost)
         {
             _stateMachine.ChangeState(State.Move);
         }
@@ -35,5 +36,13 @@ public class PlayerFlipState : PlayerState
     private void HandleMovement(Vector2 vector)
     {
         _moveDir = vector;
+    }
+    private void HandleJump()
+    {
+        _player.jumpTimer += Time.deltaTime;
+        float jumpHeight = Mathf.Clamp01(_player.jumpTimer / _player.jumpHoldTime);
+        _player.verticalVelocity = _player.boostJumpPower * jumpHeight;
+        if (_player.verticalVelocity >= _player.boostJumpPower)
+            _stateMachine.ChangeState(State.Move);
     }
 }

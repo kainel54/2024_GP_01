@@ -14,7 +14,6 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
         _player.InputCompo.OnMoveEvent += HandleMovement;
-        HandleJump();
     }
 
 
@@ -34,26 +33,16 @@ public class PlayerJumpState : PlayerState
     {
         base.UpdateState();
         
-        
-        if (_player.isGrounded)
-        {
-            if (_moveDir.sqrMagnitude <= 0.05f)
-            {
-                _stateMachine.ChangeState(State.Idle);
-            }
-            else
-            {
-                _stateMachine.ChangeState(State.Move);
-            }
-        }
+        HandleJump();
+
         _player.MoveCompo.SetMovement(_moveDir * 1.2f);
     }
     private void HandleJump()
     {
-        _player.isJumping = true;
+        _player.jumpTimer += Time.deltaTime;
         float jumpHeight = Mathf.Clamp01(_player.jumpTimer / _player.jumpHoldTime);
         _player.verticalVelocity = _player.jumpPower * jumpHeight;
         if (_player.verticalVelocity >= _player.jumpPower)
-            _player.isJumping = false;
+            _stateMachine.ChangeState(State.Move);
     }
 }

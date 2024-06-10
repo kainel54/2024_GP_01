@@ -13,7 +13,7 @@ public enum State
     ArrowIdle,
     ArrowRunning,
     Jump,
-    Flip,
+    Flip
 }
 
 public class Player : MonoBehaviour
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
     [Header("JumpSetting")]
     public float jumpPower = 8;
+    public float boostJumpPower = 12;
     public float verticalVelocity;
     public float gravity = 9.8f;
     public float jumpHoldTime = 0.2f;

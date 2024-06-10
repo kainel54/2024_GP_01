@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : PlayerState
+public class PlayerIdleState : PlayerGroundState
 {
     public PlayerIdleState(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
@@ -12,27 +12,21 @@ public class PlayerIdleState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        _player.InputCompo.OnMoveEvent += HandleMovementEvent;
-        _player.InputCompo.OnFireEvent += HandleFireEvent;
-        _player.InputCompo.OnJumpEvent += HandleJumpEvent;
+        _player.InputCompo.OnMoveEvent += HandleMovement;
+        _player.InputCompo.OnFireEvent += HandleFire;
         _player.AnimCompo.SetFloat("InputMagnitude", 0, .1f, Time.deltaTime);
     }
 
 
     public override void Exit()
     {
-        _player.InputCompo.OnMoveEvent -= HandleMovementEvent;
-        _player.InputCompo.OnFireEvent -= HandleFireEvent;
-        _player.InputCompo.OnJumpEvent -= HandleJumpEvent;
+        _player.InputCompo.OnMoveEvent -= HandleMovement;
+        _player.InputCompo.OnFireEvent -= HandleFire;
 
         base.Exit();
     }
-    private void HandleJumpEvent()
-    {
-        if(_player.isGrounded)
-            _stateMachine.ChangeState(State.Jump);
-    }
-    private void HandleMovementEvent(Vector2 movement)
+    
+    private void HandleMovement(Vector2 movement)
     {
         float inputThreshold = 0.05f;
         float velocity = new Vector2(movement.x,movement.y).magnitude;
@@ -46,9 +40,9 @@ public class PlayerIdleState : PlayerState
             _player.AnimCompo.SetFloat("InputMagnitude", velocity * _player.currentAcceleration, .1f, Time.deltaTime);
         }
     }
-    private void HandleFireEvent(bool value)
+    private void HandleFire(bool value)
     {
-        if (value&&_player.arrowSystem.isCharging)
+        if (value&&_player.arrowSystem.isCharging&&_player.isGrounded)
         {
             _stateMachine.ChangeState(State.ArrowIdle);
         }

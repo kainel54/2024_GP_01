@@ -24,7 +24,10 @@ public class PlayerMovement : MonoBehaviour
         _player.InputCompo.OnRunEvent += RunAction_performed;
         _player.InputCompo.OnRunEvent += RunAction_canceled;
         
-        //_player.arrowSystem.OnTargetHit.AddListener(Boost);
+    }
+    private void Start()
+    {
+        _player.arrowSystem.OnTargetHit.AddListener(Boost);
     }
 
     private void OnDestroy()
@@ -37,10 +40,8 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
         
-        if (!_player.isJumping)
-        {
-            _player.verticalVelocity -= _player.gravity * Time.deltaTime;
-        }
+        
+        
         _player.CharCompo.Move(Vector3.up * _player.verticalVelocity * Time.deltaTime);
         
         float lerp = _player.finishedBoost ? _player.accelerateLerp : _player.decelerateLerp;

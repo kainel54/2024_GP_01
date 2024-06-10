@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerArrowRunningState : PlayerState
+public class PlayerArrowRunningState : PlayerGroundState
 {
     private Vector2 _movementDir;
     public PlayerArrowRunningState(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
@@ -14,7 +14,6 @@ public class PlayerArrowRunningState : PlayerState
     {
         base.Enter();
         _player.InputCompo.OnMoveEvent += HandleMovement;
-        _player.InputCompo.OnJumpEvent += HandleJump;
         _player.InputCompo.OnFireEvent += HandleFire;
     }
 
@@ -26,18 +25,12 @@ public class PlayerArrowRunningState : PlayerState
         }
     }
 
-    private void HandleJump()
-    {
-        if (_player.isGrounded)
-        {
-            _stateMachine.ChangeState(State.Jump);
-        }
-    }
 
     public override void Exit()
     {
         _player.InputCompo.OnMoveEvent -= HandleMovement;
-        _player.InputCompo.OnJumpEvent -= HandleJump;
+        _player.InputCompo.OnFireEvent -= HandleFire;
+
         base.Exit();
     }
 
