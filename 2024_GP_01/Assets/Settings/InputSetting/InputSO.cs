@@ -26,21 +26,21 @@ public class InputSO : ScriptableObject, IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.IsEnd) return;
+        if (!GameManager.Instance.IsPlay) return;
         Movement = context.ReadValue<Vector2>();
         OnMoveEvent?.Invoke(Movement);
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.IsEnd) return;
+        if (!GameManager.Instance.IsPlay) return;
 
         Delta = context.ReadValue<Vector2>();
     }
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.IsEnd) return;
+        if (!GameManager.Instance.IsPlay) return;
 
         if (context.performed)
         {
@@ -54,7 +54,7 @@ public class InputSO : ScriptableObject, IPlayerActions
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.IsEnd) return;
+        if (!GameManager.Instance.IsPlay) return;
 
         if (context.performed)
         {
@@ -70,7 +70,7 @@ public class InputSO : ScriptableObject, IPlayerActions
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (GameManager.Instance.IsEnd) return;
+        if (!GameManager.Instance.IsPlay) return;
 
         if (context.performed)
         {

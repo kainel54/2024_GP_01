@@ -18,7 +18,7 @@ public class TimeManager : MonoSingleton<TimeManager>
 
     private void Timer()
     {
-        if (GameManager.Instance.IsEnd) return;
+        if (!GameManager.Instance.IsPlay) return; 
         _sec += Time.deltaTime;
 
         _timerText.text = string.Format("{0:D2}:{1:D2}",_min,(int)_sec);
