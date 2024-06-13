@@ -28,6 +28,13 @@ public class GameManager : MonoSingleton<GameManager>
         _startTimer.DOFade(0, 0.1f);
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= HandleLoadScene; 
+    }
+
+
+
     private IEnumerator StartTimer()
     {
         for(int i = 3; i > 0; i--)
@@ -39,8 +46,9 @@ public class GameManager : MonoSingleton<GameManager>
             yield return new WaitForSeconds(0.3f);
         }
         _startTimer.DOFade(1, 0);
+        IsPlay = true;
         _startTimer.text = "Start";
-        _startTimer.DOFade(0, 0.5f);
+        _startTimer.DOFade(0, 0.7f);
 
 
     }
