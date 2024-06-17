@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _player.isGrounded = Physics.Raycast(transform.position + (transform.up * .05f), Vector3.down, 1.2f, _player.whatIsGround);
         _player.AnimCompo.SetBool("isGrounded", _player.isGrounded);
-        _player.AnimCompo.SetFloat("GroundedValue", _player.isGrounded ? 0 : 1, .1f, Time.deltaTime);
+        _player.AnimCompo.SetFloat("GroundedValue", _player.isGrounded ? 0 : 1);
     }
 
     public void SetMovement(Vector2 movement)
