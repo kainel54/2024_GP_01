@@ -10,6 +10,7 @@ public class ArrowTarget : MonoBehaviour
     Player playerMovement;
     private Renderer detectorRenderer;
     private Color originalColor;
+    private FeedbackPlayer _feedbackPlayer;
 
     [Header("Booleans")]
     public bool isAvailable = true;
@@ -25,6 +26,7 @@ public class ArrowTarget : MonoBehaviour
 
     private void Start()
     {
+        _feedbackPlayer = GetComponentInChildren<FeedbackPlayer>();
         detectorRenderer = GetComponent<Renderer>();
         originalColor = visualRenderer.material.color;
 
@@ -96,12 +98,15 @@ public class ArrowTarget : MonoBehaviour
         flameRenderer.enabled = false;
         hitParticle.Play();
 
+        _feedbackPlayer.PlayFeedback();
+
         if (TargetSystem.instance.targets.Contains(this))
             TargetSystem.instance.targets.Remove(this);
 
         if (TargetSystem.instance.reachableTargets.Contains(this))
             TargetSystem.instance.reachableTargets.Remove(this);
 
+        _feedbackPlayer.FinishFeedback();
         StartCoroutine(ReactivateCoroutine());
 
         IEnumerator ReactivateCoroutine()

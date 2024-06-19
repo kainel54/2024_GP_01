@@ -15,16 +15,20 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 Velocity;
     private Vector2 _moveDir;
     private Coroutine boostCoroutine;
-
+    private FeedbackPlayer _feedbackPlayer;
 
     private void Awake()
     {
         _player = GetComponent<Player>();
+        _feedbackPlayer = GetComponentInChildren<FeedbackPlayer>();   
 
         _player.InputCompo.OnRunEvent += RunAction_performed;
         _player.InputCompo.OnRunEvent += RunAction_canceled;
-        
+        _player.InputCompo.OnMoveEvent += CheckMove;
     }
+
+    
+
     private void Start()
     {
         _player.arrowSystem.OnTargetHit.AddListener(Boost);
@@ -39,8 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         CheckGround();
-        
-        
+
         
         _player.CharCompo.Move(Vector3.up * _player.verticalVelocity * Time.deltaTime);
         
@@ -48,6 +51,13 @@ public class PlayerMovement : MonoBehaviour
         _player.currentAcceleration = Mathf.Lerp(_player.currentAcceleration, _player.isRunning ? (_player.runAcceleration * _player.accelerationMultiplier) : 1, lerp * Time.deltaTime) ;
         
     }
+
+    private void CheckMove(Vector2 vector)
+    {
+        float velocity = new Vector2(vector.x, vector.y).magnitude;
+        _player.AnimCompo.SetFloat("InputMagnitude", velocity * _player.currentAcceleration, .1f, Time.deltaTime);
+    }
+
     public void Boost()
     {
         if (!_player.holdRunInput)
@@ -81,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
             _player.isBoosting = false;
             _player.accelerationMultiplier = 1;
             _player.finishedBoost = true;
+
+            _feedbackPlayer.PlayFeedback();
 
             yield return new WaitForSeconds(1);
 
