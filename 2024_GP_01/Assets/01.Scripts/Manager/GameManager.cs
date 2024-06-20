@@ -17,7 +17,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private TextMeshProUGUI _startTimer;
     [SerializeField] private StageSO _stageSO;
     private int _startTime = 3;
-    private bool _onStar;
+    private float _sumTime;
 
     private void Awake()
     {
@@ -52,7 +52,6 @@ public class GameManager : MonoSingleton<GameManager>
         _startTimer.text = "Start";
         _startTimer.DOFade(0, 0.7f);
 
-
     }
 
     
@@ -67,14 +66,12 @@ public class GameManager : MonoSingleton<GameManager>
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         TimeManager.Instance.gameObject.SetActive(false);
+        _sumTime = TimeManager.Instance._min * 60 + TimeManager.Instance._sec;
         for(int i = 0; i < 3; i++)
         {
-            if(TimeManager.Instance._min <= _stageSO.stageTimes[i].min)
+            if (_sumTime <= _stageSO.stageTimes[i])
             {
-                if (_stageSO.stageTimes[i].min == 0)
-                {
-
-                }
+                _stars[i].color = Color.yellow;
             }
         }
     }

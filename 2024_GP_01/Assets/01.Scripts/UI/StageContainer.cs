@@ -24,8 +24,10 @@ public class StageContainer : MonoBehaviour
 
     private void StageSelect()
     {
-        string sceneName = $"Stage{_currentStage+1}";
-        SceneManager.LoadScene(sceneName);
+         CanvasGroup canvas = GetComponentInChildren<CanvasGroup>();
+        canvas.DOFade(1, 0.5f);
+        canvas.interactable = true;
+        canvas.blocksRaycasts = true;
     }
 
     private void LeftStage()
