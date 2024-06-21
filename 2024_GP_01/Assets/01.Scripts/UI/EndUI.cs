@@ -18,11 +18,14 @@ public class EndUI : MonoBehaviour
 
     private void NextStageEvent()
     {
+        Time.timeScale = 1f;
         Debug.Log(SceneManager.loadedSceneCount);
     }
 
     private void SelectStageEvent()
     {
+        Time.timeScale = 1f;
+
         SceneManager.LoadScene("Title");
     }
 }

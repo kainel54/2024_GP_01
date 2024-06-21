@@ -60,7 +60,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         IsPlay = false;
         _time.text = string.Format("{0:D2}:{1:D2}", TimeManager.Instance._min, (int)TimeManager.Instance._sec);
-        _endCanvas.DOFade(1f,0.5f).OnComplete(()=>Time.timeScale = 0);
+        _endCanvas.DOFade(1f, 0.5f).OnComplete(()=>Time.timeScale = 0) ;
         _endCanvas.interactable = true;
         _endCanvas.blocksRaycasts = true;
         Cursor.visible = true;
@@ -74,6 +74,7 @@ public class GameManager : MonoSingleton<GameManager>
                 _stars[i].color = Color.yellow;
             }
         }
+        
     }
 
 }
