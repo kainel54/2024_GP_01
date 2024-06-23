@@ -13,7 +13,7 @@ public class LookTestScript : MonoBehaviour
         target = FindObjectOfType<Player>().transform;
         arrowTargetSystem = GetComponentInChildren<ArrowTarget>();
     }
-
+     
     // Update is called once per frame
     void Update()
     {

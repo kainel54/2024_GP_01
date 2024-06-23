@@ -16,7 +16,7 @@ public class PlayerIdleState : PlayerGroundState
         _player.InputCompo.OnFireEvent += HandleFire;
         _player.AnimCompo.SetFloat("InputMagnitude", 0, .1f, Time.deltaTime);
     }
-
+     
 
     public override void Exit()
     {

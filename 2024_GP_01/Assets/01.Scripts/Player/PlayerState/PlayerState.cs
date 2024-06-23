@@ -20,7 +20,7 @@ public class PlayerState
     // 상태로 들어오는 거
     public virtual void Enter()
     {
-        _player.AnimCompo.SetBool(_animBoolHash, true);
+        _player.AnimCompo.SetBool(_animBoolHash, true); 
         _endTriggerCalled = false;
     }
 

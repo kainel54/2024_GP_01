@@ -20,7 +20,7 @@ public class Pool
         {
             GameObject gameObj = GameObject.Instantiate(_prefab, _parent);
             gameObj.SetActive(false);
-            gameObj.name = _poolable.ItemName;
+            gameObj.name = _poolable.ItemName; 
             IPoolable item = gameObj.GetComponent<IPoolable>();
             _pool.Push(item);
         }

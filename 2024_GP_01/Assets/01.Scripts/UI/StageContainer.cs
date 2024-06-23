@@ -21,7 +21,7 @@ public class StageContainer : MonoBehaviour
         _stageBtn.onClick.AddListener(StageSelect);
         _rect = GetComponent<RectTransform>();
     }
-
+     
     private void StageSelect()
     {
          CanvasGroup canvas = GetComponentInChildren<CanvasGroup>();

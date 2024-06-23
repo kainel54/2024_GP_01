@@ -16,7 +16,7 @@ public class ArrowSystem : MonoBehaviour
     [HideInInspector] public UnityEvent OnInputRelease;
     [HideInInspector] public UnityEvent<float> OnArrowRelease;
     [HideInInspector] public UnityEvent OnTargetLost;
-
+     
     private TargetSystem targetSystem;
     private ArrowTarget lockedTarget;
     private Coroutine arrowSystemCooldown;
@@ -58,7 +58,7 @@ public class ArrowSystem : MonoBehaviour
         _player.InputCompo.OnFireEvent += FireAction_performed;
         _player.InputCompo.OnFireEvent += FireAction_canceled;
     }
-
+     
     private void Update()
     {
         GetComponent<Animator>().SetBool("isCharging", isCharging);

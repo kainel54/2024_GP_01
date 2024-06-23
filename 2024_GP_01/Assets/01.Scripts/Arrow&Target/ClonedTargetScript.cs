@@ -11,7 +11,7 @@ public class ClonedTargetScript : MonoBehaviour
     Transform playerTransform;
     RectTransform rect;
     CanvasGroup canvasGroup;
-
+     
     [Header("Settings")]
     [SerializeField] float fadeDuration;
     [SerializeField] float scaleDuration;

@@ -21,6 +21,6 @@ public class CloseSelectStage : MonoBehaviour
     {
         _canvasGroup.DOFade(0, 0.5f);
         _canvasGroup.interactable = false;
-        _canvasGroup.blocksRaycasts = false;
+        _canvasGroup.blocksRaycasts = false; 
     }
 }

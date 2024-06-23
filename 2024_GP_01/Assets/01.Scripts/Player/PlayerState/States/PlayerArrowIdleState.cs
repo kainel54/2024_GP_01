@@ -17,7 +17,7 @@ public class PlayerArrowIdleState : PlayerState
     }
 
 
-    public override void Exit()
+    public override void Exit() 
     {
         _player.InputCompo.OnFireEvent -= HandleFire;
         _player.InputCompo.OnMoveEvent -= HandleMove;

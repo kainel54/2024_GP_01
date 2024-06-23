@@ -15,7 +15,7 @@ public class CompleteUI : MonoBehaviour
         _stageSelectedBtn.onClick.AddListener(HandleStageSelectedBtn);
         _nextStageBtn.onClick.AddListener(HandleNextStageSelectedBtn);
     }
-
+     
     private void HandleNextStageSelectedBtn()
     {
         SceneManager.LoadScene("Title");

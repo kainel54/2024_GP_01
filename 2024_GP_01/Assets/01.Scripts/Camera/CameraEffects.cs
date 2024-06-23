@@ -18,7 +18,7 @@ public class CameraEffects : MonoBehaviour
 
     private void Awake()
     {
-        movement = FindObjectOfType<MovementInput>();
+        movement = FindObjectOfType<MovementInput>(); 
 
         if (blit == null)
             return;

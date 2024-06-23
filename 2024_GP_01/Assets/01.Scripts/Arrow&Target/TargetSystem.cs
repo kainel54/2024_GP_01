@@ -18,7 +18,7 @@ public class TargetSystem : MonoBehaviour
     public List<ArrowTarget> targets;
     public List<ArrowTarget> reachableTargets;
     [HideInInspector] public Vector3 lerpedTargetPos;
-
+     
     [Header("Target")]
     public ArrowTarget currentTarget;
     public ArrowTarget storedTarget;

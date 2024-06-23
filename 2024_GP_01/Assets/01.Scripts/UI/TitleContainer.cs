@@ -18,7 +18,7 @@ public class TitleContainer : MonoBehaviour
         _exitBtn.onClick.AddListener(HandleExitEvent);
         _canvasGroup = GetComponent<CanvasGroup>();
     }
-
+     
     private void HandleExitEvent()
     {
         Application.Quit();

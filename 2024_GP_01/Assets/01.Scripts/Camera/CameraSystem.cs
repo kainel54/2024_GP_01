@@ -18,7 +18,7 @@ public class CameraSystem : MonoBehaviour
     [Header("Camera Settings")]
     [SerializeField] private float boostFieldOfView = 100;
     [SerializeField] private float runFieldOfView = 85;
-    [SerializeField] private float defaultFieldOfView = 40;
+    [SerializeField] private float defaultFieldOfView = 40; 
     [SerializeField] private float orbitBoostingRadius = 2.5f;
     [SerializeField] private float orbitRunningRadius = 3.5f;
     [SerializeField] private float orbitDefaultRadius = 15;

@@ -14,7 +14,7 @@ public class ParticleCollision : MonoBehaviour
     [SerializeField] ArrowSystem arrowSystem;
     [SerializeField] bool isEnergy;
     int amount = 0;
-
+     
     private void Start()
     {
         part = GetComponent<ParticleSystem>();

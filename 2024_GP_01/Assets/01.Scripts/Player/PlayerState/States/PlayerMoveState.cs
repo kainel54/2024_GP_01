@@ -16,7 +16,7 @@ public class PlayerMoveState : PlayerGroundState
         _player.InputCompo.OnMoveEvent += HandleMovement;
         _player.InputCompo.OnFireEvent += HandleFire;
     }
-    public override void Exit()
+    public override void Exit() 
     {
         _player.InputCompo.OnMoveEvent -= HandleMovement;
         _player.InputCompo.OnFireEvent -= HandleFire;

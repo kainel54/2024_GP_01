@@ -19,7 +19,7 @@ public class PlayerFlipState : PlayerState
     public override void Exit()
     {
         _player.InputCompo.OnMoveEvent += HandleMovement;
-        base.Exit();
+        base.Exit(); 
     }
 
     public override void UpdateState()

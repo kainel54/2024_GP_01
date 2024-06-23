@@ -20,7 +20,7 @@ public class ProceduralSystem : MonoBehaviour
     [SerializeField] Transform bowDefaultReference;
     [SerializeField] Transform bowActionReference;
     [SerializeField] LineRenderer bowLineRenderer;
-    [SerializeField] Transform bowLineCenter;
+    [SerializeField] Transform bowLineCenter; 
     [SerializeField] Transform bowLineHandReference;
     [SerializeField] GameObject arrowInLineGO;
 

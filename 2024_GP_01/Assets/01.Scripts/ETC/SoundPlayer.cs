@@ -44,7 +44,7 @@ public class SoundPlayer : MonoBehaviour, IPoolable
         }
         _audioSource.Play();
     }
-
+     
     private IEnumerator DisableSoundTimer(float time)
     {
         yield return new WaitForSeconds(time);

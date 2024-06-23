@@ -11,7 +11,7 @@ public class ArrowTarget : MonoBehaviour
     private Renderer detectorRenderer;
     private Color originalColor;
     private FeedbackPlayer _feedbackPlayer;
-
+     
     [Header("Booleans")]
     public bool isAvailable = true;
     public bool isReachable = false;

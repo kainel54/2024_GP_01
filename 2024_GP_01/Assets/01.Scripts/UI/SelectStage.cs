@@ -19,6 +19,6 @@ public class SelectStage : MonoBehaviour
     private void LoadStage()
     {
         string stageName = $"Stage{_currentStageNumber}";
-        SceneManager.LoadScene(stageName);
+        SceneManager.LoadScene(stageName); 
     }
 }

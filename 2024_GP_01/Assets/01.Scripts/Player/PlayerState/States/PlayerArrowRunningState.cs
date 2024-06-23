@@ -16,7 +16,7 @@ public class PlayerArrowRunningState : PlayerGroundState
         _player.InputCompo.OnMoveEvent += HandleMovement;
         _player.InputCompo.OnFireEvent += HandleFire;
     }
-
+     
     private void HandleFire(bool value)
     {
         if (!value)

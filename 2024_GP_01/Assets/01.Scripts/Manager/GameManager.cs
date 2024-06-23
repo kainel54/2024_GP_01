@@ -12,16 +12,31 @@ public class GameManager : MonoSingleton<GameManager>
     public bool IsPlay { get; internal set; }
 
     [SerializeField] private CanvasGroup _endCanvas;
+    [SerializeField] private TextMeshProUGUI[] _starText;
     [SerializeField] private Image[] _stars;
     [SerializeField] private TextMeshProUGUI _time;
     [SerializeField] private TextMeshProUGUI _startTimer;
     [SerializeField] private StageSO _stageSO;
+    [SerializeField] private int _nextStage;
     private int _startTime = 3;
     private float _sumTime;
 
     private void Awake()
     {
         SceneManager.sceneLoaded += HandleLoadScene;
+    }
+
+    public void Select()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Title");
+    }
+
+    public void Next()
+    {
+        Time.timeScale = 1;
+        if (_nextStage == 4) SceneManager.LoadScene("Title");
+        SceneManager.LoadScene($"Stage{_nextStage}");
     }
 
     private void HandleLoadScene(Scene arg0, LoadSceneMode arg1)
@@ -60,7 +75,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         IsPlay = false;
         _time.text = string.Format("{0:D2}:{1:D2}", TimeManager.Instance._min, (int)TimeManager.Instance._sec);
-        _endCanvas.DOFade(1f, 0.5f).OnComplete(()=>Time.timeScale = 0) ;
+        _endCanvas.DOFade(1f, 0.5f).OnComplete(()=>Time.timeScale = 0);
         _endCanvas.interactable = true;
         _endCanvas.blocksRaycasts = true;
         Cursor.visible = true;
@@ -69,12 +84,12 @@ public class GameManager : MonoSingleton<GameManager>
         _sumTime = TimeManager.Instance._min * 60 + TimeManager.Instance._sec;
         for(int i = 0; i < 3; i++)
         {
-            if (_sumTime <= _stageSO.stageTimes[i])
+            _starText[i].text = string.Format("{0:D2}:{1:D2}", _stageSO.stageTime[i].min, _stageSO.stageTime[i].sec);
+            if (_sumTime <= _stageSO.fStageTimes[i])
             {
                 _stars[i].color = Color.yellow;
             }
         }
-        
     }
 
 }

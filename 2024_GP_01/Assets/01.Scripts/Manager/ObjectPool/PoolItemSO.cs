@@ -19,7 +19,7 @@ public class PoolItemSO : ScriptableObject
                 Debug.LogWarning($"Cant find Poolable interface : check {prefab.name}");
                 prefab = null;
             }
-            else
+            else 
             {
                 poolName = item.ItemName;
             }

@@ -15,7 +15,7 @@ public class SoundSO : ScriptableObject
     public AudioClip clip;
     public bool loop = false;
     public bool randomizePicth = false;
-
+     
     [Range(0, 1f)]
     public float randomPitchModifier = 0.1f;
     [Range(0, 1f)]

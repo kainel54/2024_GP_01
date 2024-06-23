@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
+        _player.InputCompo.OnMoveEvent -= CheckMove;
         _player.InputCompo.OnRunEvent -= RunAction_performed;
         _player.InputCompo.OnRunEvent -= RunAction_canceled;
     }
@@ -67,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         OnMovementBoost.Invoke();
+        _feedbackPlayer.PlayFeedback();
+
 
         if (!_player.isGrounded)
             _player.StateMachine.ChangeState(State.Flip);
@@ -91,8 +94,6 @@ public class PlayerMovement : MonoBehaviour
             _player.isBoosting = false;
             _player.accelerationMultiplier = 1;
             _player.finishedBoost = true;
-
-            _feedbackPlayer.PlayFeedback();
 
             yield return new WaitForSeconds(1);
 

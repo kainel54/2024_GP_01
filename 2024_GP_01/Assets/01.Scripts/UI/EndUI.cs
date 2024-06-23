@@ -29,3 +29,4 @@ public class EndUI : MonoBehaviour
         SceneManager.LoadScene("Title");
     }
 }
+ 

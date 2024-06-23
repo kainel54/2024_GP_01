@@ -17,7 +17,7 @@ public class TimeManager : MonoSingleton<TimeManager>
     }
 
     private void Timer()
-    {
+    { 
         if (!GameManager.Instance.IsPlay) return; 
         _sec += Time.deltaTime;
 

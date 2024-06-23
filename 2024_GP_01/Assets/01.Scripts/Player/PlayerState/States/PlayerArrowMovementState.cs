@@ -15,7 +15,7 @@ public class PlayerArrowMovementState : PlayerState
     {
         base.Enter();
         _player.InputCompo.OnMoveEvent += HandleMovement;
-        _player.InputCompo.OnFireEvent += HandleFire;
+        _player.InputCompo.OnFireEvent += HandleFire; 
     }
 
     public override void Exit()

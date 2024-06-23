@@ -11,7 +11,7 @@ public class PoolManager : MonoSingleton<PoolManager>
     private void Awake()
     {
         _pools = new Dictionary<string, Pool>();
-
+         
         foreach (PoolItemSO item in _poolList.list)
         {
             CreatePool(item.prefab, item.count);

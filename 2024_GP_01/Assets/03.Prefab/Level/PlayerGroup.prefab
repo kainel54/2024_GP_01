@@ -989,6 +989,7 @@ Transform:
   - {fileID: 2811604724514351962}
   - {fileID: 6465148060422927075}
   - {fileID: 2524026726092879850}
+  - {fileID: 3690624585789487164}
   m_Father: {fileID: 1018659411443133051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6687832077613540654
@@ -1007,10 +1008,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:Hips'\n\tFrom
-    animation clip 'Sliding'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -1145,7 +1143,7 @@ MonoBehaviour:
   correctArrowEmission: {fileID: 4884028252100703246}
   arrowReleasePoint: {fileID: 4711427836401920970}
   isCharging: 0
-  chargeDuration: 0.5
+  chargeDuration: 0.56
   chargeEase: 2
   middleChargePrecision: 0.1
   slowDownInterval: 0.35
@@ -1809,7 +1807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2304567009598001230}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.032495543, y: -0, z: -0, w: 0.9994719}
+  m_LocalRotation: {x: -0.032495547, y: -0, z: -0, w: 0.9994719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11843,7 +11841,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3002504155531513044}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.032495543, y: -0, z: -0, w: 0.9994719}
+  m_LocalRotation: {x: -0.032495547, y: -0, z: -0, w: 0.9994719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12704,7 +12702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4192957935700700109}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.032495543, y: 1e-45, z: -0, w: 0.9994719}
+  m_LocalRotation: {x: -0.032495547, y: 1e-45, z: -0, w: 0.9994719}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13653,6 +13651,64 @@ Transform:
   - {fileID: 3990263239660406138}
   m_Father: {fileID: 1656993731185734793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5733989370246505847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3690624585789487164}
+  - component: {fileID: 2147325346763868373}
+  - component: {fileID: 1290495724514805471}
+  m_Layer: 0
+  m_Name: DashFeedbackPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3690624585789487164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733989370246505847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 328382094880750046}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2147325346763868373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733989370246505847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f7ee2ce22b66fe4a84e7c078511be45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundData: {fileID: 11400000, guid: de6e89bdb9d8f064787a53c6d32a7734, type: 2}
+--- !u!114 &1290495724514805471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733989370246505847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9f3e2f3985810489415c489fdd8b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5736062869597306657
 GameObject:
   m_ObjectHideFlags: 0

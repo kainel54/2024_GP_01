@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     [Header("Movement Setting")]
     public float moveSpeed;
     public float rotationSpeed = 0.1f;
-
+     
     [Header("Acceleration Settings")]
     public float currentAcceleration = 1;
     public float runAcceleration = 2;

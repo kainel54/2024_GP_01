@@ -16,7 +16,7 @@ public class BoostSystem : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private float boostDrainSpeed = .1f;
-    [SerializeField] private float boostGainAmount = .3f;
+    [SerializeField] private float boostGainAmount = .3f; 
 
     [Header("Visuals")]
     [SerializeField] private Renderer boostMesh;

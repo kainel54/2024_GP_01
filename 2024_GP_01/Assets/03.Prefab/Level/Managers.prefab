@@ -90,6 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _endCanvas: {fileID: 0}
+  _starText:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _stars:
   - {fileID: 0}
   - {fileID: 0}

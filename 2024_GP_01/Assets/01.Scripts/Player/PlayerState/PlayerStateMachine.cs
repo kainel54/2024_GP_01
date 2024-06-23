@@ -14,7 +14,7 @@ public class PlayerStateMachine {
 
     //맨처음 초기화 담당 매서드
     public void Initialize(State startState, Player player)
-    {
+    { 
         _player = player;
         CurrentState = stateDictionary[startState];
         CurrentState.Enter();

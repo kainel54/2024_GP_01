@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   audioType: 0
-  clip: {fileID: 8300000, guid: 957a9078fdad15b4fb849a3f9d0b0284, type: 3}
+  clip: {fileID: 8300000, guid: 17b52e612f006e94c920b8d9d23ebdcd, type: 3}
   loop: 0
   randomizePicth: 0
   randomPitchModifier: 0.1
-  volume: 1
+  volume: 0.395
   pitch: 1
